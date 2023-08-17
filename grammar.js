@@ -1,8 +1,27 @@
 module.exports = grammar({
-  name: 'YOUR_LANGUAGE_NAME',
+  name: 'strictly',
 
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => 'hello'
-  }
+    source_file: $ => repeat($._root_statement),
+    _root_statement: $ => choice($.data_declaration),
+    data_declaration: $ => seq(
+      "data",
+      field("declaration_name", $.typeIdentifier),
+      "=",
+      field("declaration_types", repeat($.type)),
+      ";"
+    ),
+    typeIdentifier: $ => /[A-Z][a-zA-Z]*/,
+    type: $ => seq(
+      field("name", $.typeIdentifier),
+      field("parameters", optional(
+        seq(
+          "(",
+          repeat($.type),
+          ")"
+        )
+      )))
+  },
+
+  externals: $ => [$._newline, $._indent, $._dedent],
 });
