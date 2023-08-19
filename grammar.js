@@ -21,7 +21,7 @@ module.exports = grammar({
       choice(
         $._newline,
         $.algebraic_data_type_declaration,
-        $.root_type_declaration,
+        $.type_alias_declaration,
         $.root_value_type_declaration,
         $.root_value_assignment,
       ),
@@ -41,7 +41,7 @@ module.exports = grammar({
           optional(seq(PARAMETER_START, commaSep($._type), PARAMETER_STOP)),
         ),
       ),
-    root_type_declaration: ($) =>
+    type_alias_declaration: ($) =>
       seq(
         "type",
         field("name", $.typeIdentifier),
@@ -57,14 +57,14 @@ module.exports = grammar({
         RECORD_START,
         commaSep(
           seq(
-            field("key", $.valueIdentifier),
+            field("name", $.valueIdentifier),
             TYPE_ASSIGNMENT,
-            field("type", $._type),
+            field("value", $._type),
           ),
         ),
         RECORD_STOP,
       ),
-    typeList: ($) => seq(LIST_START, field("type", $._type), LIST_STOP),
+    typeList: ($) => seq(LIST_START, field("value", $._type), LIST_STOP),
     typeFunction: ($) =>
       seq(
         FUNCTION_HEAD_START,

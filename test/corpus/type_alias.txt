@@ -1,0 +1,79 @@
+============================================
+Type Alias declaration for AlgebraicDataType
+============================================
+
+type Foo = Bar;
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (typeIdentifier)
+	value: (typeAlgebraicDataType
+	  name: (typeIdentifier)
+	)
+  )
+)
+
+=================================
+Type Alias declaration for Record
+=================================
+
+type Foo = { foo: Bar };
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (typeIdentifier)
+	value: (typeRecord
+	  name: (valueIdentifier)
+      value: (typeAlgebraicDataType
+        name: (typeIdentifier)
+      )
+	)
+  )
+)
+
+===============================
+Type Alias declaration for List
+===============================
+
+type Foo = [ Bar ];
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (typeIdentifier)
+	value: (typeList
+      value: (typeAlgebraicDataType
+        name: (typeIdentifier)
+      )
+	)
+  )
+)
+
+
+===================================
+Type Alias declaration for Function
+===================================
+
+type Foo = \ Bar -> Baz;
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (typeIdentifier)
+	value: (typeFunction
+      parameter: (typeAlgebraicDataType
+        name: (typeIdentifier)
+      )
+      return: (typeAlgebraicDataType
+        name: (typeIdentifier)
+      )
+	)
+  )
+)
+
