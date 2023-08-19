@@ -50,8 +50,8 @@ module.exports = grammar({
         STATEMENT_STOP,
       ),
     _type: ($) =>
-      choice($.typeAlgebraic, $.typeRecord, $.typeFunction, $.typeList),
-    typeAlgebraic: ($) => field("name", $.typeIdentifier),
+      choice($.typeAlgebraicDataType, $.typeRecord, $.typeFunction, $.typeList),
+    typeAlgebraicDataType: ($) => field("name", $.typeIdentifier),
     typeRecord: ($) =>
       seq(
         RECORD_START,

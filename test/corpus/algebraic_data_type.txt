@@ -14,3 +14,68 @@ data Foo = Bar;
 	)
   )
 )
+
+============================================================
+Algebraic Data Type Declaration, one Value with one parameter
+============================================================
+
+data Foo = Bar(Foo);
+
+---
+
+(source_file
+  (algebraic_data_type_declaration
+    name: (typeIdentifier)
+	value: (algebraic_data_type_value
+	  name: (typeIdentifier)
+      parameter: (typeAlgebraicDataType
+        name: (typeIdentifier)
+      )
+	)
+  )
+)
+
+
+============================================================
+Algebraic Data Type Declaration, one Value with two parameter
+============================================================
+
+data Foo = Bar(Foo, Baz);
+
+---
+
+(source_file
+  (algebraic_data_type_declaration
+    name: (typeIdentifier)
+	value: (algebraic_data_type_value
+	  name: (typeIdentifier)
+      parameter: (typeAlgebraicDataType
+        name: (typeIdentifier)
+      )
+      parameter: (typeAlgebraicDataType
+        name: (typeIdentifier)
+      )	)
+  )
+)
+
+
+
+============================================================
+Algebraic Data Type Declaration, two Values without parameter
+============================================================
+
+data Foo = Bar, Baz;
+
+---
+
+(source_file
+  (algebraic_data_type_declaration
+    name: (typeIdentifier)
+	value: (algebraic_data_type_value
+	  name: (typeIdentifier)
+	)
+	value: (algebraic_data_type_value
+	  name: (typeIdentifier)
+	)  )
+)
+
