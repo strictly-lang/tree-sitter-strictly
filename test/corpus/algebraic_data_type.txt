@@ -1,0 +1,16 @@
+============================================================
+Algebraic Data Type Declaration, one Value without parameter
+============================================================
+
+data Foo = Bar;
+
+---
+
+(source_file
+  (algebraic_data_type_declaration
+    name: (typeIdentifier)
+	value: (algebraic_data_type_value
+	  name: (typeIdentifier)
+	)
+  )
+)

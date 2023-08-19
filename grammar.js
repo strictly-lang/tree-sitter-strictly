@@ -20,22 +20,22 @@ module.exports = grammar({
     _root_statement: ($) =>
       choice(
         $._newline,
-        $.root_data_declaration,
+        $.algebraic_data_type_declaration,
         $.root_type_declaration,
         $.root_value_type_declaration,
         $.root_value_assignment,
       ),
-    root_data_declaration: ($) =>
+    algebraic_data_type_declaration: ($) =>
       seq(
         "data",
-        field("name", $._typeIdentifier),
+        field("name", $.typeIdentifier),
         VALUE_ASSIGNMENT,
-        field("value", commaSep1($.root_data_value_declaration)),
+        field("value", commaSep1($.algebraic_data_type_value)),
         STATEMENT_STOP,
       ),
-    root_data_value_declaration: ($) =>
+    algebraic_data_type_value: ($) =>
       seq(
-        field("name", $._typeIdentifier),
+        field("name", $.typeIdentifier),
         field(
           "parameter",
           optional(seq(PARAMETER_START, commaSep($._type), PARAMETER_STOP)),
@@ -44,20 +44,20 @@ module.exports = grammar({
     root_type_declaration: ($) =>
       seq(
         "type",
-        field("name", $._typeIdentifier),
+        field("name", $.typeIdentifier),
         VALUE_ASSIGNMENT,
         field("value", commaSep1($._type)),
         STATEMENT_STOP,
       ),
     _type: ($) =>
       choice($.typeAlgebraic, $.typeRecord, $.typeFunction, $.typeList),
-    typeAlgebraic: ($) => field("name", $._typeIdentifier),
+    typeAlgebraic: ($) => field("name", $.typeIdentifier),
     typeRecord: ($) =>
       seq(
         RECORD_START,
         commaSep(
           seq(
-            field("key", $._valueIdentifier),
+            field("key", $.valueIdentifier),
             TYPE_ASSIGNMENT,
             field("type", $._type),
           ),
@@ -74,13 +74,13 @@ module.exports = grammar({
       ),
     root_value_type_declaration: ($) =>
       seq(
-        field("name", $._valueIdentifier),
+        field("name", $.valueIdentifier),
         TYPE_ASSIGNMENT,
         field("type", $._type),
       ),
     root_value_assignment: ($) =>
       seq(
-        field("name", $._valueIdentifier),
+        field("name", $.valueIdentifier),
         VALUE_ASSIGNMENT,
         field("expression", $._expression),
       ),
@@ -98,7 +98,7 @@ module.exports = grammar({
         RECORD_START,
         commaSep(
           seq(
-            field("key", $._valueIdentifier),
+            field("key", $.valueIdentifier),
             VALUE_ASSIGNMENT,
             field("value", $._statements),
           ),
@@ -113,13 +113,13 @@ module.exports = grammar({
         optional(seq(BASE_START, field("base", commaSep1($._statement)))),
         LIST_STOP,
       ),
-    expressionVariable: ($) => seq($._valueIdentifier),
+    expressionVariable: ($) => seq($.valueIdentifier),
     _leftHandSide: ($) =>
       choice($.leftHandSideVariable, $.leftHandSideAlgebraic),
-    leftHandSideVariable: ($) => $._valueIdentifier,
+    leftHandSideVariable: ($) => $.valueIdentifier,
     leftHandSideAlgebraic: ($) =>
       seq(
-        field("name", $._typeIdentifier),
+        field("name", $.typeIdentifier),
         field(
           "parameter",
           optional(
@@ -138,8 +138,8 @@ module.exports = grammar({
         $._statement,
       ),
     _statement: ($) => choice($._expression),
-    _valueIdentifier: ($) => /[a-z][a-zA-Z]*/,
-    _typeIdentifier: ($) => /[A-Z][a-zA-Z]*/,
+    valueIdentifier: ($) => /[a-z][a-zA-Z]*/,
+    typeIdentifier: ($) => /[A-Z][a-zA-Z]*/,
   },
 
   externals: ($) => [$._newline, $._indent, $._dedent],
