@@ -1,0 +1,87 @@
+===========================================
+Expression Assignment for AlgebraicDataType
+===========================================
+
+foo = Bar
+
+---
+
+(source_file
+  (assignment
+    leftHandSide: (leftHandSideVariable 
+      name: (valueIdentifier)
+    )
+	value: (expressionAlgebraicDataType
+	  name: (typeIdentifier)
+	)
+  )
+)
+
+================================
+Expression Assignment for Record
+================================
+
+foo = { foo = Bar }
+
+---
+
+(source_file
+  (assignment
+    leftHandSide: (leftHandSideVariable 
+      name: (valueIdentifier)
+    )
+	value: (expressionRecord
+	  name: (valueIdentifier)
+      value: (expressionAlgebraicDataType
+        name: (typeIdentifier)
+      )
+	)
+  )
+)
+
+==============================
+Expression Assignment for List
+==============================
+
+foo = [ Bar ]
+
+---
+
+(source_file
+  (assignment
+    leftHandSide: (leftHandSideVariable 
+      name: (valueIdentifier)
+    )
+	value: (expressionList
+      value: (expressionAlgebraicDataType
+        name: (typeIdentifier)
+      )
+	)
+  )
+)
+
+
+==================================
+Expression Assignment for Function
+=================================
+
+foo = \Bar -> Baz
+
+---
+
+(source_file
+  (assignment
+    leftHandSide: (leftHandSideVariable 
+      name: (valueIdentifier)
+    )
+	value: (expressionFunction
+      parameter: (leftHandSideAlgebraicDataType
+        name: (typeIdentifier)
+      )
+      body: (expressionAlgebraicDataType
+        name: (typeIdentifier)
+      )
+	)
+  )
+)
+

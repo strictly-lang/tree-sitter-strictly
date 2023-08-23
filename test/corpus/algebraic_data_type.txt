@@ -2,14 +2,14 @@
 Algebraic Data Type Declaration, one Value without parameter
 ============================================================
 
-data Foo = Bar;
+data Foo = Bar
 
 ---
 
 (source_file
-  (algebraic_data_type_declaration
+  (algebraicDataTypeDeclaration
     name: (typeIdentifier)
-	value: (algebraic_data_type_value
+	value: (algebraicDataTypeValue
 	  name: (typeIdentifier)
 	)
   )
@@ -19,14 +19,14 @@ data Foo = Bar;
 Algebraic Data Type Declaration, one Value with one parameter
 ============================================================
 
-data Foo = Bar(Foo);
+data Foo = Bar(Foo)
 
 ---
 
 (source_file
-  (algebraic_data_type_declaration
+  (algebraicDataTypeDeclaration
     name: (typeIdentifier)
-	value: (algebraic_data_type_value
+	value: (algebraicDataTypeValue
 	  name: (typeIdentifier)
       parameter: (typeAlgebraicDataType
         name: (typeIdentifier)
@@ -40,14 +40,14 @@ data Foo = Bar(Foo);
 Algebraic Data Type Declaration, one Value with two parameter
 ============================================================
 
-data Foo = Bar(Foo, Baz);
+data Foo = Bar(Foo, Baz)
 
 ---
 
 (source_file
-  (algebraic_data_type_declaration
+  (algebraicDataTypeDeclaration
     name: (typeIdentifier)
-	value: (algebraic_data_type_value
+	value: (algebraicDataTypeValue
 	  name: (typeIdentifier)
       parameter: (typeAlgebraicDataType
         name: (typeIdentifier)
@@ -64,17 +64,17 @@ data Foo = Bar(Foo, Baz);
 Algebraic Data Type Declaration, two Values without parameter
 ============================================================
 
-data Foo = Bar, Baz;
+data Foo = Bar, Baz
 
 ---
 
 (source_file
-  (algebraic_data_type_declaration
+  (algebraicDataTypeDeclaration
     name: (typeIdentifier)
-	value: (algebraic_data_type_value
+	value: (algebraicDataTypeValue
 	  name: (typeIdentifier)
 	)
-	value: (algebraic_data_type_value
+	value: (algebraicDataTypeValue
 	  name: (typeIdentifier)
 	)  )
 )

@@ -9,31 +9,28 @@ const FUNCTION_HEAD_STOP = "->";
 const VALUE_ASSIGNMENT = "=";
 const TYPE_ASSIGNMENT = ":";
 const SEPERATOR = ",";
-const STATEMENT_STOP = ";";
 const BASE_START = "|";
 
 module.exports = grammar({
   name: "strictly",
 
   rules: {
-    source_file: ($) => repeat($._root_statement),
-    _root_statement: ($) =>
+    source_file: ($) => repeat($._rootStatement),
+    _rootStatement: ($) =>
       choice(
         $._newline,
-        $.algebraic_data_type_declaration,
-        $.type_alias_declaration,
-        $.root_value_type_declaration,
-        $.root_value_assignment,
+        $.algebraicDataTypeDeclaration,
+        $.typeAliasDeclaration,
+        alias($.rootValueAssignment, $.assignment),
       ),
-    algebraic_data_type_declaration: ($) =>
+    algebraicDataTypeDeclaration: ($) =>
       seq(
         "data",
         field("name", $.typeIdentifier),
         VALUE_ASSIGNMENT,
-        field("value", commaSep1($.algebraic_data_type_value)),
-        STATEMENT_STOP,
+        field("value", commaSep1($.algebraicDataTypeValue)),
       ),
-    algebraic_data_type_value: ($) =>
+    algebraicDataTypeValue: ($) =>
       seq(
         field("name", $.typeIdentifier),
         field(
@@ -41,13 +38,12 @@ module.exports = grammar({
           optional(seq(PARAMETER_START, commaSep($._type), PARAMETER_STOP)),
         ),
       ),
-    type_alias_declaration: ($) =>
+    typeAliasDeclaration: ($) =>
       seq(
         "type",
         field("name", $.typeIdentifier),
         VALUE_ASSIGNMENT,
         field("value", commaSep1($._type)),
-        STATEMENT_STOP,
       ),
     _type: ($) =>
       choice($.typeAlgebraicDataType, $.typeRecord, $.typeFunction, $.typeList),
@@ -58,7 +54,7 @@ module.exports = grammar({
         commaSep(
           seq(
             field("name", $.valueIdentifier),
-            TYPE_ASSIGNMENT,
+            VALUE_ASSIGNMENT,
             field("value", $._type),
           ),
         ),
@@ -72,20 +68,27 @@ module.exports = grammar({
         FUNCTION_HEAD_STOP,
         field("return", $._type),
       ),
-    root_value_type_declaration: ($) =>
+    rootValueAssignment: ($) =>
       seq(
-        field("name", $.valueIdentifier),
-        TYPE_ASSIGNMENT,
-        field("type", $._type),
-      ),
-    root_value_assignment: ($) =>
-      seq(
-        field("name", $.valueIdentifier),
+        field("leftHandSide", $.leftHandSideVariable),
         VALUE_ASSIGNMENT,
-        field("expression", $._expression),
+        field("value", $._expression),
+      ),
+    assignment: ($) =>
+      seq(
+        "let",
+        field("leftHandSide", $._leftHandSide),
+        VALUE_ASSIGNMENT,
+        field("value", $._expression),
       ),
     _expression: ($) =>
-      choice($.expressionFunction, $.expressionRecord, $.expressionVariable),
+      choice(
+        $.expressionFunction,
+        $.expressionRecord,
+        $.expressionList,
+        $.expressionVariable,
+        $.expressionAlgebraicDataType,
+      ),
     expressionFunction: ($) =>
       seq(
         FUNCTION_HEAD_START,
@@ -98,7 +101,7 @@ module.exports = grammar({
         RECORD_START,
         commaSep(
           seq(
-            field("key", $.valueIdentifier),
+            field("name", $.valueIdentifier),
             VALUE_ASSIGNMENT,
             field("value", $._statements),
           ),
@@ -114,10 +117,11 @@ module.exports = grammar({
         LIST_STOP,
       ),
     expressionVariable: ($) => seq($.valueIdentifier),
+    expressionAlgebraicDataType: ($) => field("name", $.typeIdentifier),
     _leftHandSide: ($) =>
-      choice($.leftHandSideVariable, $.leftHandSideAlgebraic),
-    leftHandSideVariable: ($) => $.valueIdentifier,
-    leftHandSideAlgebraic: ($) =>
+      choice($.leftHandSideVariable, $.leftHandSideAlgebraicDataType),
+    leftHandSideVariable: ($) => field("name", $.valueIdentifier),
+    leftHandSideAlgebraicDataType: ($) =>
       seq(
         field("name", $.typeIdentifier),
         field(
@@ -137,7 +141,7 @@ module.exports = grammar({
         ),
         $._statement,
       ),
-    _statement: ($) => choice($._expression),
+    _statement: ($) => choice($._expression, $.assignment),
     valueIdentifier: ($) => /[a-z][a-zA-Z]*/,
     typeIdentifier: ($) => /[A-Z][a-zA-Z]*/,
   },
@@ -152,3 +156,4 @@ function commaSep1(rule) {
 function commaSep(rule) {
   return optional(commaSep1(rule));
 }
+
