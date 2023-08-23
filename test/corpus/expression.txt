@@ -9,10 +9,10 @@ foo = Bar
 (source_file
   (assignment
     leftHandSide: (leftHandSideVariable 
-      name: (valueIdentifier)
+      name: (identifier)
     )
 	value: (expressionAlgebraicDataType
-	  name: (typeIdentifier)
+	  name: (identifier)
 	)
   )
 )
@@ -28,12 +28,12 @@ foo = { foo = Bar }
 (source_file
   (assignment
     leftHandSide: (leftHandSideVariable 
-      name: (valueIdentifier)
+      name: (identifier)
     )
 	value: (expressionRecord
-	  name: (valueIdentifier)
+	  name: (identifier)
       value: (expressionAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
 	)
   )
@@ -50,11 +50,11 @@ foo = [ Bar ]
 (source_file
   (assignment
     leftHandSide: (leftHandSideVariable 
-      name: (valueIdentifier)
+      name: (identifier)
     )
 	value: (expressionList
       value: (expressionAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
 	)
   )
@@ -72,14 +72,14 @@ foo = \Bar -> Baz
 (source_file
   (assignment
     leftHandSide: (leftHandSideVariable 
-      name: (valueIdentifier)
+      name: (identifier)
     )
 	value: (expressionFunction
       parameter: (leftHandSideAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
       body: (expressionAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
 	)
   )

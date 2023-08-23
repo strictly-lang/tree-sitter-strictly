@@ -8,9 +8,9 @@ type Foo = Bar
 
 (source_file
   (typeAliasDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (typeAlgebraicDataType
-	  name: (typeIdentifier)
+	  name: (identifier)
 	)
   )
 )
@@ -25,11 +25,11 @@ type Foo = { foo= Bar }
 
 (source_file
   (typeAliasDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (typeRecord
-	  name: (valueIdentifier)
+	  name: (identifier)
       value: (typeAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
 	)
   )
@@ -45,10 +45,10 @@ type Foo = [ Bar ]
 
 (source_file
   (typeAliasDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (typeList
       value: (typeAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
 	)
   )
@@ -65,13 +65,13 @@ type Foo = \ Bar -> Bar
 
 (source_file
   (typeAliasDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (typeFunction
       parameter: (typeAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
       return: (typeAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
 	)
   )

@@ -8,9 +8,9 @@ data Foo = Bar
 
 (source_file
   (algebraicDataTypeDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (algebraicDataTypeValue
-	  name: (typeIdentifier)
+	  name: (identifier)
 	)
   )
 )
@@ -25,11 +25,11 @@ data Foo = Bar(Foo)
 
 (source_file
   (algebraicDataTypeDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (algebraicDataTypeValue
-	  name: (typeIdentifier)
+	  name: (identifier)
       parameter: (typeAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
 	)
   )
@@ -46,14 +46,14 @@ data Foo = Bar(Foo, Baz)
 
 (source_file
   (algebraicDataTypeDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (algebraicDataTypeValue
-	  name: (typeIdentifier)
+	  name: (identifier)
       parameter: (typeAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )
       parameter: (typeAlgebraicDataType
-        name: (typeIdentifier)
+        name: (identifier)
       )	)
   )
 )
@@ -70,12 +70,12 @@ data Foo = Bar, Baz
 
 (source_file
   (algebraicDataTypeDeclaration
-    name: (typeIdentifier)
+    name: (identifier)
 	value: (algebraicDataTypeValue
-	  name: (typeIdentifier)
+	  name: (identifier)
 	)
 	value: (algebraicDataTypeValue
-	  name: (typeIdentifier)
+	  name: (identifier)
 	)  )
 )
 

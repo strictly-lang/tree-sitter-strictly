@@ -26,13 +26,13 @@ module.exports = grammar({
     algebraicDataTypeDeclaration: ($) =>
       seq(
         "data",
-        field("name", $.typeIdentifier),
+        field("name", $._typeIdentifier),
         VALUE_ASSIGNMENT,
         field("value", commaSep1($.algebraicDataTypeValue)),
       ),
     algebraicDataTypeValue: ($) =>
       seq(
-        field("name", $.typeIdentifier),
+        field("name", $._typeIdentifier),
         field(
           "parameter",
           optional(seq(PARAMETER_START, commaSep($._type), PARAMETER_STOP)),
@@ -41,19 +41,19 @@ module.exports = grammar({
     typeAliasDeclaration: ($) =>
       seq(
         "type",
-        field("name", $.typeIdentifier),
+        field("name", $._typeIdentifier),
         VALUE_ASSIGNMENT,
         field("value", commaSep1($._type)),
       ),
     _type: ($) =>
       choice($.typeAlgebraicDataType, $.typeRecord, $.typeFunction, $.typeList),
-    typeAlgebraicDataType: ($) => field("name", $.typeIdentifier),
+    typeAlgebraicDataType: ($) => field("name", $._typeIdentifier),
     typeRecord: ($) =>
       seq(
         RECORD_START,
         commaSep(
           seq(
-            field("name", $.valueIdentifier),
+            field("name", $._valueIdentifier),
             VALUE_ASSIGNMENT,
             field("value", $._type),
           ),
@@ -101,7 +101,7 @@ module.exports = grammar({
         RECORD_START,
         commaSep(
           seq(
-            field("name", $.valueIdentifier),
+            field("name", $._valueIdentifier),
             VALUE_ASSIGNMENT,
             field("value", $._statements),
           ),
@@ -116,14 +116,14 @@ module.exports = grammar({
         optional(seq(BASE_START, field("base", commaSep1($._statement)))),
         LIST_STOP,
       ),
-    expressionVariable: ($) => seq($.valueIdentifier),
-    expressionAlgebraicDataType: ($) => field("name", $.typeIdentifier),
+    expressionVariable: ($) => seq($._valueIdentifier),
+    expressionAlgebraicDataType: ($) => field("name", $._typeIdentifier),
     _leftHandSide: ($) =>
       choice($.leftHandSideVariable, $.leftHandSideAlgebraicDataType),
-    leftHandSideVariable: ($) => field("name", $.valueIdentifier),
+    leftHandSideVariable: ($) => field("name", $._valueIdentifier),
     leftHandSideAlgebraicDataType: ($) =>
       seq(
-        field("name", $.typeIdentifier),
+        field("name", $._typeIdentifier),
         field(
           "parameter",
           optional(
@@ -142,8 +142,8 @@ module.exports = grammar({
         $._statement,
       ),
     _statement: ($) => choice($._expression, $.assignment),
-    valueIdentifier: ($) => /[a-z][a-zA-Z]*/,
-    typeIdentifier: ($) => /[A-Z][a-zA-Z]*/,
+    _valueIdentifier: ($) => alias(/[a-z][a-zA-Z]*/, $.identifier),
+    _typeIdentifier: ($) => alias(/[A-Z][a-zA-Z]*/, $.identifier),
   },
 
   externals: ($) => [$._newline, $._indent, $._dedent],
