@@ -1,8 +1,12 @@
 {
-  "name": "tree-sitter-YOUR-LANGUAGE-NAME",
+  "name": "tree-sitter-strictly",
   "version": "0.0.1",
-  "description": "YOUR-LANGUAGE-NAME grammar for tree-sitter",
+  "description": "strictly grammar for tree-sitter",
   "main": "bindings/node",
+  "tree-sitter": [{
+    "source": "source.strictly",
+    "file-types": ["sly"]
+  }],
   "keywords": [
     "parsing",
     "incremental"
