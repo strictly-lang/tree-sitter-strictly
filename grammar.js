@@ -27,7 +27,7 @@ module.exports = grammar({
       ),
     algebraicDataTypeDeclaration: ($) =>
       seq(
-        "data",
+        field("keyword", "data"),
         field("name", $._typeIdentifier),
         VALUE_ASSIGNMENT,
         field("value", commaSep1($.algebraicDataTypeValue)),
@@ -42,7 +42,7 @@ module.exports = grammar({
       ),
     comment: ($) =>
       seq(
-        "//",
+        COMMENT,
         /.*/
       ),
     typeAliasDeclaration: ($) =>

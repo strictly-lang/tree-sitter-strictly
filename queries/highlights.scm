@@ -1,7 +1,7 @@
 (comment) @comment
 
 (algebraicDataTypeDeclaration 
-  [ "data" ] @keyword.control
+  [ "data" ] @storage.type
   name: (identifier) @entity.name.type
   value: (algebraicDataTypeValue
     name: (identifier) @storage.type.class
