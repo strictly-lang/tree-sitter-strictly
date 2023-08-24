@@ -1,13 +1,13 @@
 (comment) @comment
 
 (algebraicDataTypeDeclaration 
-  [ "data" ] @storage.type
-  name: (identifier) @entity.name.type
+  [ "data" ] @keyword.storage.type
+  name: (identifier) @type.enum
   value: (algebraicDataTypeValue
-    name: (identifier) @storage.type.class
+    name: (identifier) @constructor
   )
 )
 
 (typeAlgebraicDataType
-  name: (identifier) @entity.name.type
+  name: (identifier) @type.enum
 )

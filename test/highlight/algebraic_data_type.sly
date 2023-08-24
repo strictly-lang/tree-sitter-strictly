@@ -1,5 +1,5 @@
 data Foo = Bar(String)
-  // <- storage.type
-  // ^ entity.name.type
-  //       ^ storage.type.class
-  //           ^ entity.name.type
+// <- keyword.storage.type
+//   ^ type.enum
+//         ^ constructor
+//             ^ type.enum
