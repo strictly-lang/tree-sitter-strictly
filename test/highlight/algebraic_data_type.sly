@@ -1,0 +1,5 @@
+data Foo = Bar(String)
+  // <- keyword.control
+  // ^ entity.name.type
+  //       ^ storage.type.class
+  //           ^ entity.name.type

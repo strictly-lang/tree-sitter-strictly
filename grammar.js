@@ -10,6 +10,7 @@ const VALUE_ASSIGNMENT = "=";
 const TYPE_ASSIGNMENT = ":";
 const SEPERATOR = ",";
 const BASE_START = "|";
+const COMMENT = "//";
 
 module.exports = grammar({
   name: "strictly",
@@ -19,6 +20,7 @@ module.exports = grammar({
     _rootStatement: ($) =>
       choice(
         $._newline,
+        $.comment,
         $.algebraicDataTypeDeclaration,
         $.typeAliasDeclaration,
         alias($.rootValueAssignment, $.assignment),
@@ -37,6 +39,11 @@ module.exports = grammar({
           "parameter",
           optional(seq(PARAMETER_START, commaSep($._type), PARAMETER_STOP)),
         ),
+      ),
+    comment: ($) =>
+      seq(
+        "//",
+        /.*/
       ),
     typeAliasDeclaration: ($) =>
       seq(
