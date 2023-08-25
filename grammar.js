@@ -26,7 +26,7 @@ module.exports = grammar({
         alias($.rootValueAssignment, $.assignment),
       ),
     algebraicDataTypeDeclaration: ($) =>
-      seq(
+      sequence(
         field("keyword", "data"),
         field("name", $._typeIdentifier),
         VALUE_ASSIGNMENT,
@@ -46,7 +46,7 @@ module.exports = grammar({
         /.*/
       ),
     typeAliasDeclaration: ($) =>
-      seq(
+      sequence(
         "type",
         field("name", $._typeIdentifier),
         VALUE_ASSIGNMENT,
@@ -155,6 +155,12 @@ module.exports = grammar({
 
   externals: ($) => [$._newline, $._indent, $._dedent],
 });
+
+function sequence(rule, ...rules) {
+  return rules.length === 0 ?
+    rule
+  : seq(rule, optional(sequence(...rules)));
+}
 
 function commaSep1(rule) {
   return seq(rule, repeat(seq(SEPERATOR, rule)));

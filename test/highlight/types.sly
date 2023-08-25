@@ -1,5 +1,17 @@
+type
+// <- keyword
+
+type Incomeplete
+// <- keyword
+//   ^ type.enum
+
+type Incomplete =
+// <- keyword
+//   ^ type.enum
+//              ^ operator
+
 type Foo = String
-// <- keyword.storage.type
+// <- keyword
 //   ^ type.enum
 //       ^ operator
 //         ^ type.enum

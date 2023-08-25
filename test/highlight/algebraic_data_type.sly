@@ -1,5 +1,5 @@
 data Foo = Bar(String, Number), Baz(Number, String)
-// <- keyword.storage.type
+// <- keyword
 //   ^ type.enum
 //       ^ operator
 //         ^ constructor
@@ -15,3 +15,15 @@ data Foo = Bar(String, Number), Baz(Number, String)
 //                                        ^ punctuation.delimiter
 //                                            ^ type.enum
 //                                                ^ punctuation.bracket
+
+data
+// <- keyword
+
+data Mep
+// <- keyword
+//   ^ type.enum
+
+data Mep =
+// <- keyword
+//   ^ type.enum
+//       ^ operator
