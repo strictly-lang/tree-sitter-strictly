@@ -6,6 +6,12 @@
   value: (algebraicDataTypeValue
     name: (identifier) @constructor
   )
+  (
+    "," @punctuation.delimiter
+    value: (algebraicDataTypeValue
+     name: (identifier) @constructor
+    )
+  )*
 )
 
 (typeAliasDeclaration

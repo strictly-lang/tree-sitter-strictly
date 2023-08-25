@@ -1,5 +1,8 @@
-data Foo = Bar(String)
+data Foo = Bar(String, Number), Baz
 // <- keyword.storage.type
 //   ^ type.enum
 //         ^ constructor
 //             ^ type.enum
+//                      ^ type.enum
+//                            ^ @punctuation.delimiter
+//                              ^ constructor
