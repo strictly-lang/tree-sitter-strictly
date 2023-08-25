@@ -14,6 +14,8 @@
   ")"
   "{"
   "}"
+  "["
+  "]"
 ] @punctuation.bracket
 
 "," @punctuation.delimiter

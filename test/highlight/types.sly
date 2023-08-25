@@ -12,3 +12,8 @@ type Bar = { foo = Foo, bar = String }
 //                          ^ operator
 //                            ^ type.enum
 //                                   ^ punctuation.bracket
+
+type Baz = [ String ]
+//         ^ punctuation.bracket
+//           ^ type.enum
+//                  ^ punctuation.bracket
