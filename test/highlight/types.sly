@@ -1,4 +1,14 @@
-type Foo = Bar
+type Foo = String
 // <- keyword.storage.type
 //   ^ type.enum
+//       ^ operator
 //         ^ type.enum
+
+type Bar = { foo = Foo, bar = String }
+//         ^ punctuation.bracket
+//           ^ variable.other.member   
+//                    ^ punctuation.delimiter
+//                      ^ variable.other.member
+//                          ^ operator
+//                            ^ type.enum
+//                                   ^ punctuation.bracket

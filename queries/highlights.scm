@@ -1,31 +1,44 @@
 (comment) @comment
 
+[
+  "data"
+  "type"
+] @keyword.storage.type
+
+[
+  "="
+] @operator
+
+[
+  "("
+  ")"
+  "{"
+  "}"
+] @punctuation.bracket
+
+"," @punctuation.delimiter
+
 (algebraicDataTypeDeclaration 
-  [ "data" ] @keyword.storage.type
   name: (identifier) @type.enum
-  "=" @operator
-  value: (algebraicDataTypeValue
+  (algebraicDataTypeValue
     name: (identifier) @constructor
-    "(" @punctuation.bracket
-    ","* @punctuation.delimiter
-    ")" @punctuation.bracket
   )
   (
-    "," @punctuation.delimiter
-    value: (algebraicDataTypeValue
-     name: (identifier) @constructor
-    "(" @punctuation.bracket
-    ","* @punctuation.delimiter
-    ")" @punctuation.bracket
+    ","
+    (algebraicDataTypeValue
+      name: (identifier) @constructor  
     )
   )*
 )
 
 (typeAliasDeclaration
-  [ "type" ] @keyword.storage.type
-  name: (identifier) @type.enum
+  (identifier) @type.enum
 )
 
 (typeAlgebraicDataType
   name: (identifier) @type.enum
+)
+
+(typeRecord
+  (identifier) @variable.other.member
 )
