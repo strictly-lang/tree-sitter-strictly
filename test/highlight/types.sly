@@ -17,3 +17,9 @@ type Baz = [ String ]
 //         ^ punctuation.bracket
 //           ^ type.enum
 //                  ^ punctuation.bracket
+
+type Mep = \Number -> String
+//         ^ function
+//          ^ type.enum
+//                 ^ function
+//                    ^ type.enum

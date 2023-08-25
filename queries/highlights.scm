@@ -6,6 +6,11 @@
 ] @keyword.storage.type
 
 [
+  "\\"
+  "->"
+] @function
+
+[
   "="
 ] @operator
 
