@@ -149,8 +149,8 @@ module.exports = grammar({
         $._statement,
       ),
     _statement: ($) => choice($._expression, $.assignment),
-    _valueIdentifier: ($) => alias(/[a-z][a-zA-Z]*/, $.identifier),
-    _typeIdentifier: ($) => alias(/[A-Z][a-zA-Z]*/, $.identifier),
+    _valueIdentifier: ($) => alias(/\p{Lowercase_Letter}\p{Letter}*/, $.identifier),
+    _typeIdentifier: ($) => alias(/\p{Uppercase_Letter}\p{Letter}*/, $.identifier),
   },
 
   externals: ($) => [$._newline, $._indent, $._dedent],
