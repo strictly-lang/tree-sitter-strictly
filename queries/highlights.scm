@@ -6,11 +6,6 @@
 ] @keyword
 
 [
-  "\\"
-  "->"
-] @function
-
-[
   "="
 ] @operator
 
@@ -25,6 +20,7 @@
 
 "," @punctuation.delimiter
 
+; Algebraic Data Type Declaration
 (algebraicDataTypeDeclaration 
   name: (identifier) @type.enum
 )
@@ -33,6 +29,7 @@
   name: (identifier) @constructor
 )
 
+; Types
 (typeAliasDeclaration
   (identifier) @type.enum
 )
@@ -43,4 +40,38 @@
 
 (typeRecord
   (identifier) @variable.other.member
+)
+
+(typeFunction
+  "\\" @function
+)
+
+(typeFunction
+  "->" @function
+)
+
+; Left Hand Side
+(leftHandSideVariable
+  name: (identifier) @variable
+)
+
+; Expression
+(expressionAlgebraicDataType
+  name: (identifier) @constructor
+)
+
+(expressionRecord
+  name: (identifier) @variable.other.member
+)
+
+(expressionFunction
+  "\\" @function
+)
+
+(expressionFunction
+  "->" @function
+)
+
+(expressionVariable
+  name: (identifier) @variable
 )

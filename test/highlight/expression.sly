@@ -1,0 +1,28 @@
+bar
+// <- variable
+
+baz =
+// <- variable
+//  ^ operator
+
+foo = Bar
+// <- variable
+//  ^ operator
+//    ^ constructor
+
+foo = { foo = Bar }
+//    ^ punctuation.bracket
+//      ^ variable.other.member
+//          ^ operator
+//            ^ constructor
+//                ^ punctuation.bracket
+
+foo = [ Bar ]
+//    ^ punctuation.bracket
+//      ^ constructor
+//          ^ punctuation.bracket
+
+foo = \foo -> bar
+//    ^ function
+//         ^ function
+//            ^ variable

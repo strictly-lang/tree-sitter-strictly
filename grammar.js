@@ -123,7 +123,7 @@ module.exports = grammar({
         optional(seq(BASE_START, field("base", commaSep1($._statement)))),
         LIST_STOP,
       ),
-    expressionVariable: ($) => seq($._valueIdentifier),
+    expressionVariable: ($) => field("name", $._valueIdentifier),
     expressionAlgebraicDataType: ($) => field("name", $._typeIdentifier),
     _leftHandSide: ($) =>
       choice($.leftHandSideVariable, $.leftHandSideAlgebraicDataType),
