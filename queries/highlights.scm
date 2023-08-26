@@ -1,6 +1,11 @@
 (comment) @comment
 
 [
+  "data"
+  "type"
+] @keyword
+
+[
   "\\"
   "->"
 ] @function
@@ -20,23 +25,16 @@
 
 "," @punctuation.delimiter
 
-(algebraicDataTypeDeclaration
-  "data" @keyword
-)
-
-(algebraicDataTypeDeclaration
+(algebraicDataTypeDeclaration 
   name: (identifier) @type.enum
 )
 
-(algebraicDataTypeDeclaration
-  (algebraicDataTypeValue
-    name: (identifier) @constructor
-  )
+(algebraicDataTypeValue
+  name: (identifier) @constructor
 )
 
 (typeAliasDeclaration
-  "type" @keyword
-  (identifier)? @type.enum
+  (identifier) @type.enum
 )
 
 (typeAlgebraicDataType
