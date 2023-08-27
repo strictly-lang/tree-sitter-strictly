@@ -8,7 +8,7 @@ foo = Bar
 
 (source_file
   (assignment
-    leftHandSide: (leftHandSideVariable 
+    leftHandSide: (variableLeftHandSideVariable 
       name: (identifier)
     )
 	value: (expressionAlgebraicDataType
@@ -27,7 +27,7 @@ foo = { foo = Bar }
 
 (source_file
   (assignment
-    leftHandSide: (leftHandSideVariable 
+    leftHandSide: (variableLeftHandSideVariable 
       name: (identifier)
     )
 	value: (expressionRecord
@@ -49,7 +49,7 @@ foo = [ Bar ]
 
 (source_file
   (assignment
-    leftHandSide: (leftHandSideVariable 
+    leftHandSide: (variableLeftHandSideVariable 
       name: (identifier)
     )
 	value: (expressionList
@@ -71,11 +71,11 @@ foo = \Bar -> Baz
 
 (source_file
   (assignment
-    leftHandSide: (leftHandSideVariable 
+    leftHandSide: (variableLeftHandSideVariable 
       name: (identifier)
     )
 	value: (expressionFunction
-      parameter: (leftHandSideAlgebraicDataType
+      parameter: (parameterLeftHandSideAlgebraicDataType
         name: (identifier)
       )
       body: (expressionAlgebraicDataType

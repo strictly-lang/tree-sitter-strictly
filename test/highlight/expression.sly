@@ -24,5 +24,6 @@ foo = [ Bar ]
 
 foo = \foo -> bar
 //    ^ function
+//     ^ variable.parameter
 //         ^ function
 //            ^ variable

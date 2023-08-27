@@ -51,8 +51,12 @@
 )
 
 ; Left Hand Side
-(leftHandSideVariable
+(variableLeftHandSideVariable
   name: (identifier) @variable
+)
+
+(parameterLeftHandSideVariable
+  name: (identifier) @variable.parameter
 )
 
 ; Expression
