@@ -40,11 +40,7 @@ module.exports = grammar({
           optional(seq(PARAMETER_START, commaSep($._type), PARAMETER_STOP)),
         ),
       ),
-    comment: ($) =>
-      seq(
-        COMMENT,
-        /.*/
-      ),
+    comment: ($) => seq(COMMENT, /.*/),
     typeAliasDeclaration: ($) =>
       partialSequence(
         "type",
@@ -88,6 +84,8 @@ module.exports = grammar({
         VALUE_ASSIGNMENT,
         field("value", $._expression),
       ),
+    ...leftHandSide("variable"),
+    ...leftHandSide("parameter"),
     _expression: ($) =>
       choice(
         $.expressionFunction,
@@ -99,7 +97,7 @@ module.exports = grammar({
     expressionFunction: ($) =>
       seq(
         FUNCTION_HEAD_START,
-        field("parameter", commaSep($._leftHandSide)),
+        field("parameter", commaSep($._parameterLeftHandSide)),
         FUNCTION_HEAD_STOP,
         field("body", $._statements),
       ),
@@ -125,19 +123,6 @@ module.exports = grammar({
       ),
     expressionVariable: ($) => field("name", $._valueIdentifier),
     expressionAlgebraicDataType: ($) => field("name", $._typeIdentifier),
-    _leftHandSide: ($) =>
-      choice($.leftHandSideVariable, $.leftHandSideAlgebraicDataType),
-    leftHandSideVariable: ($) => field("name", $._valueIdentifier),
-    leftHandSideAlgebraicDataType: ($) =>
-      seq(
-        field("name", $._typeIdentifier),
-        field(
-          "parameter",
-          optional(
-            seq(PARAMETER_START, commaSep($._leftHandSide), PARAMETER_STOP),
-          ),
-        ),
-      ),
     _statements: ($) =>
       choice(
         seq(
@@ -149,17 +134,47 @@ module.exports = grammar({
         $._statement,
       ),
     _statement: ($) => choice($._expression, $.assignment),
-    _valueIdentifier: ($) => alias(/\p{Lowercase_Letter}\p{Letter}*/, $.identifier),
-    _typeIdentifier: ($) => alias(/\p{Uppercase_Letter}\p{Letter}*/, $.identifier),
+    _valueIdentifier: ($) =>
+      alias(/\p{Lowercase_Letter}\p{Letter}*/, $.identifier),
+    _typeIdentifier: ($) =>
+      alias(/\p{Uppercase_Letter}\p{Letter}*/, $.identifier),
   },
 
   externals: ($) => [$._newline, $._indent, $._dedent],
 });
 
+function leftHandSide(kind) {
+  const prefix = (kind) =>
+    kind === "variable" ? "leftHandSide" : `${kind}LeftHandSide`;
+  const common = ["AlgebraicDataType"];
+  return {
+    [`_${prefix(kind)}`]: ($) =>
+      choice(
+        $[`${prefix(kind)}${kind === "variable" ? "Variable" : "Parameter"}`],
+        ...common.map((name) => $[`${prefix(kind)}${name}`]),
+      ),
+    [`${prefix(kind)}${kind === "variable" ? "Variable" : "Parameter"}`]: ($) =>
+      field("name", $._valueIdentifier),
+    [`${prefix(kind)}AlgebraicDataType`]: ($) =>
+      seq(
+        field("name", $._typeIdentifier),
+        field(
+          "parameter",
+          optional(
+            seq(
+              PARAMETER_START,
+              commaSep($[`_${prefix(kind)}`]),
+              PARAMETER_STOP,
+            ),
+          ),
+        ),
+      ),
+  };
+}
 function partialSequence(rule, ...rules) {
-  return rules.length === 0 ?
-    rule
-  : seq(rule, optional(partialSequence(...rules)));
+  return rules.length === 0
+    ? rule
+    : seq(rule, optional(partialSequence(...rules)));
 }
 
 function commaSep1(rule) {
@@ -169,4 +184,3 @@ function commaSep1(rule) {
 function commaSep(rule) {
   return optional(commaSep1(rule));
 }
-

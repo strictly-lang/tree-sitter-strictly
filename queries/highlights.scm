@@ -51,11 +51,11 @@
 )
 
 ; Left Hand Side
-(variableLeftHandSideVariable
+(leftHandSideVariable
   name: (identifier) @variable
 )
 
-(parameterLeftHandSideVariable
+(parameterLeftHandSideParameter
   name: (identifier) @variable.parameter
 )
 
