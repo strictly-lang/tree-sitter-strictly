@@ -1,0 +1,4 @@
+foo : String
+// <- variable
+//  ^ operator
+//    ^ type.enum

@@ -1,0 +1,19 @@
+============================
+Type Assignment for variable
+===========================
+
+foo : Bar
+
+---
+
+(source_file
+  (typeAssignment
+    leftHandSide: (leftHandSideVariable
+	  name: (identifier)
+	)
+	value: (typeAlgebraicDataType
+	  name: (identifier)
+	)
+  )
+)
+

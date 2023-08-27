@@ -24,6 +24,7 @@ module.exports = grammar({
         $.algebraicDataTypeDeclaration,
         $.typeAliasDeclaration,
         alias($.rootValueAssignment, $.assignment),
+        alias($.rootTypeAssignment, $.typeAssignment),
       ),
     algebraicDataTypeDeclaration: ($) =>
       partialSequence(
@@ -76,6 +77,12 @@ module.exports = grammar({
         field("leftHandSide", $.leftHandSideVariable),
         VALUE_ASSIGNMENT,
         field("value", $._expression),
+      ),
+    rootTypeAssignment: ($) =>
+      seq(
+        field("leftHandSide", $.leftHandSideVariable),
+        TYPE_ASSIGNMENT,
+        field("value", $._type),
       ),
     assignment: ($) =>
       seq(
