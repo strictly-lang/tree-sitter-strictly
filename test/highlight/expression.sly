@@ -22,8 +22,10 @@ foo = [ Bar ]
 //      ^ constructor
 //          ^ punctuation.bracket
 
-foo = \foo -> bar
+foo = \foo, Baz(bar) -> baz
 //    ^ function
 //     ^ variable.parameter
-//         ^ function
-//            ^ variable
+//          ^ constructor
+//              ^ variable.parameter
+//                   ^ function
+//                      ^ variable

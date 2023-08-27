@@ -150,10 +150,10 @@ function leftHandSide(kind) {
   return {
     [`_${prefix(kind)}`]: ($) =>
       choice(
-        $[`${prefix(kind)}${kind === "variable" ? "Variable" : "Parameter"}`],
-        ...common.map((name) => $[`${prefix(kind)}${name}`]),
+        $[`${prefix("variable")}${kind === "variable" ? "Variable" : "Parameter"}`],
+        ...common.map((name) => kind === "variable" ? $[`${prefix(kind)}${name}`] : alias($[`${prefix(kind)}${name}`], $[`${prefix("variable")}${name}`])),
       ),
-    [`${prefix(kind)}${kind === "variable" ? "Variable" : "Parameter"}`]: ($) =>
+    [`${prefix("variable")}${kind === "variable" ? "Variable" : "Parameter"}`]: ($) =>
       field("name", $._valueIdentifier),
     [`${prefix(kind)}AlgebraicDataType`]: ($) =>
       seq(

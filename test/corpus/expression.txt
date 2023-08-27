@@ -75,7 +75,7 @@ foo = \Bar -> Baz
       name: (identifier)
     )
 	value: (expressionFunction
-      parameter: (parameterLeftHandSideAlgebraicDataType
+      parameter: (leftHandSideAlgebraicDataType
         name: (identifier)
       )
       body: (expressionAlgebraicDataType

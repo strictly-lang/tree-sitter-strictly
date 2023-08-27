@@ -55,8 +55,12 @@
   name: (identifier) @variable
 )
 
-(parameterLeftHandSideParameter
+(leftHandSideParameter
   name: (identifier) @variable.parameter
+)
+
+(leftHandSideAlgebraicDataType
+  name: (identifier) @constructor
 )
 
 ; Expression
