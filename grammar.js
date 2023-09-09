@@ -154,8 +154,14 @@ function leftHandSide(kind) {
   const prefix = (kind) =>
     kind === "variable" ? "leftHandSide" : `${kind}LeftHandSide`;
   const common = ["AlgebraicDataType"];
+
   return {
     [`_${prefix(kind)}`]: ($) =>
+      seq(
+        $[`_${prefix(kind)}_single`],
+        //repeat(seq("@", $[`_${prefix(kind)}_single`])),
+      ),
+    [`_${prefix(kind)}_single`]: ($) =>
       choice(
         $[
           `${prefix("variable")}${
@@ -176,10 +182,10 @@ function leftHandSide(kind) {
     [`${prefix(kind)}AlgebraicDataType`]: ($) =>
       seq(
         field("name", $._typeIdentifier),
-        field(
+        optional(
+          field(
           "parameter",
-          optional(
-            seq(
+           seq(
               PARAMETER_START,
               commaSep($[`_${prefix(kind)}`]),
               PARAMETER_STOP,
