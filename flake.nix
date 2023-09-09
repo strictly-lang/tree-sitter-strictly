@@ -3,21 +3,31 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    naersk.url = "github:nix-community/naersk";
-    rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs = { self, nixpkgs, flake-utils, rust-overlay, naersk }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem
       (system:
         let pkgs = nixpkgs.legacyPackages.${system};
-            packageName = "strictly";
+            packageName = "tree-sitter-strictly";
+            buildInputs = [ pkgs.tree-sitter pkgs.nodejs pkgs.graphviz ];
        in {
+          defaultPackage = pkgs.stdenv.mkDerivation {
+            name = "tree-sitter-strictly";
+            src = ./.;
+            buildInputs = buildInputs;
+            buildPhase = ''
+              tree-sitter generate
+            '';
+            installPhase = ''
+              cp -r . $out
+            '';
+            testPhase = ''
+              tree-sitter test
+            '';
+          };
           devShell = pkgs.mkShell {
-            buildInputs = [
-                pkgs.tree-sitter
-                pkgs.nodejs
-              ];
+            buildInputs = buildInputs;
           };
         }
       );
