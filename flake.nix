@@ -42,12 +42,13 @@
 
             in {
               default = pkgs.stdenv.mkDerivation {
-                name = "tree-sitter-strictly";
+                name = "tree-sitter-strictly-test";
                 src = ./.;
                 buildInputs = [ pkgs.tree-sitter pkgs.nodejs self.packages.${system}.default ];
                 buildPhase = ''
                   cd ${self.packages.${system}.default}
                   XDG_CACHE_HOME=$TMPDIR tree-sitter test
+                  touch $out
                 '';
               };
             }
