@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Test
 
 # Controls when the action will run. 
 on:
@@ -25,6 +25,7 @@ jobs:
 
       - name: Add nix
         uses: cachix/install-nix-action@v22
-
-      - name: test
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test
         run: nix flake check
