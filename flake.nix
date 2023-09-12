@@ -7,8 +7,12 @@
   outputs = { self, nixpkgs, flake-utils }:
        let  packageName = "tree-sitter-strictly";
             forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux"];
-            treeSitterStrictly = (pkgs:
-              pkgs.stdenv.mkDerivation {
+       in {
+          packages = forAllSystems(system:
+            let pkgs = nixpkgs.legacyPackages.${system};
+
+            in {
+              default = pkgs.stdenv.mkDerivation {
                 name = "tree-sitter-strictly";
                 src = ./.;
                 buildInputs = [ pkgs.tree-sitter pkgs.nodejs ];
@@ -18,19 +22,12 @@
                 installPhase = ''
                   cp -r . $out
                 '';
-              }
-            );
-       in {
-          packages = forAllSystems(system:
-            let pkgs = nixpkgs.legacyPackages.${system}; 
-            
-            in {
-              default = treeSitterStrictly pkgs;
+              };
             }
           );
           devShells = forAllSystems(system:
             let pkgs = nixpkgs.legacyPackages.${system};
-            
+
             in {
               default =  pkgs.mkShell {
                 buildInputs = [ pkgs.graphviz ];
