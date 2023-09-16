@@ -4,7 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs }:
        let  packageName = "tree-sitter-strictly";
             forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux"];
        in {
