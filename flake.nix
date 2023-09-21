@@ -10,6 +10,14 @@
        in {
           packages = forAllSystems(system:
             let pkgs = nixpkgs.legacyPackages.${system};
+                name = "strictly.so";
+
+            in {
+              default = pkgs.stdenv.mkDerivation {
+                name = "tree-sitter-strictly";
+                src = ./.;
+                buildInputs = [ pkgs.tree-sitter pkgs.nodejs ];
+                dontConfigure = true;
                 FLAGS = [
                   "-Isrc"
                   "-g"
@@ -18,22 +26,30 @@
                   "-fno-exceptions"
                   "-Wl,-z,relro,-z,now"
                 ];
-                name = "strictly.so";
-
-            in {
-              default = pkgs.stdenv.mkDerivation {
-                name = "tree-sitter-strictly";
-                src = ./.;
-                buildInputs = [ pkgs.tree-sitter pkgs.nodejs ];
                 buildPhase = ''
+                  runHook preBuild
+
                   tree-sitter generate
                   $CC -c "src/parser.c" -o parser.o $FLAGS
                   $CXX -c "src/scanner.cc" -o scanner.o $FLAGS -shared -o ${name} *.o
                   chmod +x ${name}
+
+                  runHook postBuild
                 '';
                 installPhase = ''
+                  runHook preInstall
+                  
                   mkdir -p $out/lib
                   cp ${name} $out/lib/.
+
+                  runHook postInstall
+                '';
+                fixupPhase = ''
+                  runHook preFixup
+
+                  $STRIP $out/lib/${name}
+
+                  runHook postFixup
                 '';
               };
             }
