@@ -10,17 +10,56 @@
        in {
           packages = forAllSystems(system:
             let pkgs = nixpkgs.legacyPackages.${system};
+                name = "strictly";
 
             in {
               default = pkgs.stdenv.mkDerivation {
-                name = "tree-sitter-strictly";
+                name = "tree-sitter-${name}";
                 src = ./.;
                 buildInputs = [ pkgs.tree-sitter pkgs.nodejs ];
+                dontConfigure = true;
+
+                FLAGS = [
+                  "-Isrc"
+                  "-g"
+                  "-O3"
+                  "-fPIC"
+                  "-fno-exceptions"
+                  "-Wl,-z,relro,-z,now"
+                ];
+
                 buildPhase = ''
+                  runHook preBuild
+
                   tree-sitter generate
+
+                  $CXX -c "src/scanner.cc" -o scanner.o $FLAGS
+                  $CC -c "src/parser.c" -o parser.o $FLAGS
+                  $CXX -shared -o ${name}.so *.o
+
+                  runHook postBuild
                 '';
+
                 installPhase = ''
-                  cp -r . $out
+                  runHook preInstall
+
+                  mkdir -p $out/lib
+                  mv ${name}.so $out/lib
+
+                  cp -r src $out
+                  cp -r test $out
+                  cp -r queries $out
+                  cp package.json $out
+
+                  runHook postInstall
+                '';
+
+                fixupPhase = ''
+                  runHook preFixup
+
+                  $STRIP $out/lib/${name}.so
+
+                  runHook postFixup
                 '';
               };
             }
@@ -40,11 +79,14 @@
             in {
               default = pkgs.stdenv.mkDerivation {
                 name = "tree-sitter-strictly-test";
-                src = ./.;
+                dontUnpack = true;
+                dontConfigure = true;
                 buildInputs = [ pkgs.tree-sitter pkgs.nodejs self.packages.${system}.default ];
                 buildPhase = ''
                   cd ${self.packages.${system}.default}
-                  XDG_CACHE_HOME=$TMPDIR tree-sitter test
+                  TREE_SITTER_LIBDIR=${self.packages.${system}.default}/lib tree-sitter test
+                '';
+                installPhase = ''
                   touch $out
                 '';
               };
