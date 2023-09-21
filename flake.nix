@@ -46,9 +46,10 @@
                   mkdir -p $out/lib
                   mv ${name}.so $out/lib
 
-                  cp -r src $out/.
-                  cp -r test $out/.
-                  cp package.json $out/.
+                  cp -r src $out
+                  cp -r test $out
+                  cp -r queries $out
+                  cp package.json $out
 
                   runHook postInstall
                 '';
