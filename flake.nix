@@ -37,8 +37,6 @@
                   $CC -c "src/parser.c" -o parser.o $FLAGS
                   $CXX -shared -o ${name}.so *.o
 
-                  chmod +x ${name}.so
-
                   runHook postBuild
                 '';
 
@@ -47,6 +45,10 @@
 
                   mkdir -p $out/lib
                   mv ${name}.so $out/lib
+
+                  cp -r src $out/.
+                  cp -r test $out/.
+                  cp package.json $out/.
 
                   runHook postInstall
                 '';
@@ -76,10 +78,11 @@
             in {
               default = pkgs.stdenv.mkDerivation {
                 name = "tree-sitter-strictly-test";
-                src = ./.;
+                dontUnpack = true;
+                dontConfigure = true;
                 buildInputs = [ pkgs.tree-sitter pkgs.nodejs self.packages.${system}.default ];
                 buildPhase = ''
-                  tree-sitter generate
+                  cd ${self.packages.${system}.default}
                   TREE_SITTER_LIBDIR=${self.packages.${system}.default}/lib tree-sitter test
                 '';
                 installPhase = ''
