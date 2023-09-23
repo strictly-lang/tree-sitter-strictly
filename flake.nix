@@ -31,11 +31,7 @@
                 buildPhase = ''
                   runHook preBuild
 
-                  tree-sitter generate
-
-                  $CXX -c "src/scanner.cc" -o scanner.o $FLAGS
-                  $CC -c "src/parser.c" -o parser.o $FLAGS
-                  $CXX -shared -o ${name}.so *.o
+                  tree-sitter generate --build --libdir=.
 
                   runHook postBuild
                 '';
@@ -44,7 +40,7 @@
                   runHook preInstall
 
                   mkdir -p $out/lib
-                  mv ${name}.so $out/lib
+                  mv *.so $out/lib
 
                   cp -r src $out
                   cp -r test $out
