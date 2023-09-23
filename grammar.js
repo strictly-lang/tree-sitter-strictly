@@ -153,7 +153,7 @@ module.exports = grammar({
 function leftHandSide(kind) {
   const prefix = (kind) =>
     kind === "variable" ? "leftHandSide" : `${kind}LeftHandSide`;
-  const common = ["AlgebraicDataType"];
+  const common = ["AlgebraicDataType", "Hole"];
 
   return {
     [`_${prefix(kind)}`]: ($) =>
@@ -193,6 +193,7 @@ function leftHandSide(kind) {
           ),
         ),
       ),
+    [`${prefix(kind)}Hole`]: () => "_"
   };
 }
 function partialSequence(rule, ...rules) {

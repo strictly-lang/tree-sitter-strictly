@@ -2,3 +2,6 @@ foo : String
 // <- variable
 //  ^ operator
 //    ^ type.enum
+
+_ = Foo
+^ <- variable.builtin

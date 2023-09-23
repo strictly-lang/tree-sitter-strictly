@@ -64,6 +64,8 @@
   name: (identifier) @constructor
 )
 
+(leftHandSideHole) @variable.builtin
+
 ; Expression
 (expressionAlgebraicDataType
   name: (identifier) @constructor
