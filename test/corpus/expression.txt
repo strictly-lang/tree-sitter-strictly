@@ -11,9 +11,11 @@ foo = Bar
     leftHandSide: (leftHandSideVariable 
       name: (identifier)
     )
-	value: (expressionAlgebraicDataType
-	  name: (identifier)
-	)
+	value: (expression
+      (expressionAlgebraicDataType
+    	name: (identifier)
+   	  )
+    )
   )
 )
 
@@ -30,12 +32,16 @@ foo = { foo = Bar }
     leftHandSide: (leftHandSideVariable 
       name: (identifier)
     )
-	value: (expressionRecord
-	  name: (identifier)
-      value: (expressionAlgebraicDataType
-        name: (identifier)
+  	value: (expression
+      (expressionRecord
+    	name: (identifier)
+        value: (expression
+          (expressionAlgebraicDataType
+            name: (identifier)
+          )
+     	)
       )
-	)
+    )
   )
 )
 
@@ -52,18 +58,22 @@ foo = [ Bar ]
     leftHandSide: (leftHandSideVariable 
       name: (identifier)
     )
-	value: (expressionList
-      value: (expressionAlgebraicDataType
-        name: (identifier)
-      )
-	)
+  	value: (expression
+      (expressionList
+        value: (expression
+          (expressionAlgebraicDataType
+            name: (identifier)
+          )
+        )
+   	  )
+    )
   )
 )
 
 
 ==================================
 Expression Assignment for Function
-=================================
+==================================
 
 foo = \Bar -> Baz
 
@@ -74,14 +84,39 @@ foo = \Bar -> Baz
     leftHandSide: (leftHandSideVariable 
       name: (identifier)
     )
-	value: (expressionFunction
-      parameter: (leftHandSideAlgebraicDataType
-        name: (identifier)
-      )
-      body: (expressionAlgebraicDataType
-        name: (identifier)
-      )
-	)
+  	value: (expression
+      (expressionFunction
+        parameter: (leftHandSideAlgebraicDataType
+          name: (identifier)
+        )
+        body: (expression
+          (expressionAlgebraicDataType
+            name: (identifier)
+          )
+        )
+   	  )
+    )
+  )
+)
+
+================================
+Expression Assignment for String
+================================
+
+foo = "foo"
+
+---
+
+(source_file
+  (assignment
+    leftHandSide: (leftHandSideVariable 
+      name: (identifier)
+    )
+	value: (expression
+      (expressionString
+         text
+       )
+    )
   )
 )
 

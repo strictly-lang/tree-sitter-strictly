@@ -76,7 +76,7 @@ module.exports = grammar({
       seq(
         field("leftHandSide", $.leftHandSideVariable),
         VALUE_ASSIGNMENT,
-        field("value", $._expression),
+        field("value", $.expression),
       ),
     rootTypeAssignment: ($) =>
       seq(
@@ -89,11 +89,11 @@ module.exports = grammar({
         "let",
         field("leftHandSide", $._leftHandSide),
         VALUE_ASSIGNMENT,
-        field("value", $._expression),
+        field("value", $.expression),
       ),
     ...leftHandSide("variable"),
     ...leftHandSide("parameter"),
-    _expression: ($) =>
+    expression: ($) =>
       choice(
         $.expressionFunction,
         $.expressionRecord,
@@ -140,7 +140,7 @@ module.exports = grammar({
         ),
         $._statement,
       ),
-    _statement: ($) => choice($._expression, $.assignment),
+    _statement: ($) => choice($.expression, $.assignment),
     _valueIdentifier: ($) =>
       alias(/\p{Lowercase_Letter}\p{Letter}*/, $.identifier),
     _typeIdentifier: ($) =>
