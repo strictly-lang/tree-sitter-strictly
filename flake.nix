@@ -60,6 +60,14 @@
               };
             }
           );
+          apps = forAllSystems(system:
+            {
+              tree-sitter = {
+                type = "app";
+                program = "${nixpkgs.legacyPackages.${system}.tree-sitter}/bin/tree-sitter";
+              };
+            }
+          );
           devShells = forAllSystems(system:
             let pkgs = nixpkgs.legacyPackages.${system};
 
