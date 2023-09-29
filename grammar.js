@@ -100,6 +100,7 @@ module.exports = grammar({
         $.expressionList,
         $.expressionVariable,
         $.expressionAlgebraicDataType,
+        $.expressionString
       ),
     expressionFunction: ($) =>
       seq(
@@ -130,6 +131,23 @@ module.exports = grammar({
       ),
     expressionVariable: ($) => field("name", $._valueIdentifier),
     expressionAlgebraicDataType: ($) => field("name", $._typeIdentifier),
+    expressionString: ($) => seq(
+      "\"",
+      repeat(
+        choice(
+          $.text,
+          seq(
+            "${",
+            $.expression,
+            "}"
+          )
+        )
+      ),
+      "\"",
+    ),
+    text: () => (
+      prec.right(-1, repeat1(/([\$].)|[^\"|\${]/))
+    ),
     _statements: ($) =>
       choice(
         seq(

@@ -114,7 +114,7 @@ foo = "foo"
     )
 	value: (expression
       (expressionString
-         text
+         (text)
        )
     )
   )

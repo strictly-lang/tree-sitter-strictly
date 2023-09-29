@@ -86,3 +86,11 @@
 (expressionVariable
   name: (identifier) @variable
 )
+
+(expressionString
+  "\"" @string
+)
+
+(expressionString
+  (text) @string
+)

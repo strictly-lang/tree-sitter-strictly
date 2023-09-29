@@ -30,3 +30,9 @@ foo = \foo, Baz(bar) -> baz
 //                   ^ function
 //                      ^ variable
 
+foo = "bar${baz}mep"
+//    ^ string
+//     ^ string
+//          ^ variable
+//              ^ string
+//                 ^ string
