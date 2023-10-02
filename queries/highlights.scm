@@ -10,6 +10,14 @@
   ":"
 ] @operator
 
+(expressionString
+  "${" @punctuation.special
+)
+
+(expressionString
+  "}" @punctuation.special
+)
+
 [
   "("
   ")"
@@ -94,3 +102,4 @@
 (expressionString
   (text) @string
 )
+

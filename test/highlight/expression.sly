@@ -33,6 +33,9 @@ foo = \foo, Baz(bar) -> baz
 foo = "bar${baz}mep"
 //    ^ string
 //     ^ string
+//        ^ punctuation.special
+//         ^ punctuation.special
 //          ^ variable
+//             ^ punctuation.special
 //              ^ string
 //                 ^ string
