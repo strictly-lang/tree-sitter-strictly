@@ -120,3 +120,44 @@ foo = "foo"
   )
 )
 
+=====================================
+Expression Assignment for HostBuiltin
+=====================================
+
+foo = $div
+
+---
+
+(source_file
+  (assignment
+    leftHandSide: (leftHandSideVariable 
+      name: (identifier)
+    )
+	value: (expression
+      (expressionHostBuiltin
+         name: (identifier)
+       )
+    )
+  )
+)
+
+=====================================
+Expression Assignment for HostComponent
+=====================================
+
+foo = $foo-bar
+
+---
+
+(source_file
+  (assignment
+    leftHandSide: (leftHandSideVariable 
+      name: (identifier)
+    )
+	value: (expression
+      (expressionHostComponent
+         name: (identifier)
+       )
+    )
+  )
+)

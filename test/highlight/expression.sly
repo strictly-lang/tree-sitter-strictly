@@ -39,3 +39,13 @@ foo = "bar${baz}mep"
 //             ^ punctuation.special
 //              ^ string
 //                 ^ string
+
+foo = $div
+//    ^ tag.builtin
+//   	 ^ tag.builtin
+
+foo = $some-component
+//    ^ tag
+//     ^ tag
+//         ^ tag
+//          ^ tag

@@ -103,3 +103,16 @@
   (text) @string
 )
 
+(expressionHostBuiltin
+  "$" @tag.builtin
+)
+(expressionHostBuiltin
+  name: (identifier) @tag.builtin
+)
+
+(expressionHostComponent
+  "$" @tag
+)
+(expressionHostComponent
+  name: (identifier) @tag
+)

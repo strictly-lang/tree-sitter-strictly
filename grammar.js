@@ -100,6 +100,8 @@ module.exports = grammar({
         $.expressionList,
         $.expressionVariable,
         $.expressionAlgebraicDataType,
+        $.expressionHostBuiltin,
+        $.expressionHostComponent,
         $.expressionString
       ),
     expressionFunction: ($) =>
@@ -131,6 +133,14 @@ module.exports = grammar({
       ),
     expressionVariable: ($) => field("name", $._valueIdentifier),
     expressionAlgebraicDataType: ($) => field("name", $._typeIdentifier),
+    expressionHostBuiltin: ($) => seq(
+      "$",
+      field("name", alias(/\p{Lowercase_Letter}+/, $.identifier)),
+    ),
+    expressionHostComponent: ($) => seq(
+      "$",
+      field("name", alias(/\p{Lowercase_Letter}+(-\p{Lowercase_Letter}+)+/, $.identifier)),
+    ),
     expressionString: ($) => seq(
       "\"",
       repeat(
